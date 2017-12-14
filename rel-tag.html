@@ -217,19 +217,13 @@ function shownavetiquetas(json) {
 </head>
 <body>
 
-			<span class='tags'>
+			<p class='postage'><i class='material-icons'>&#59539;</i> 
              <b:if cond='data:post.labels'>
               <b:loop values='data:post.labels' var='label'>
     <b:if cond='data:blog.pageType == &quot;item&quot;'>
 			<div id='jqtips'>
               <a expr:onclick='&quot;setnavetiquetas(\&quot;&quot; + data:label.name + &quot;\&quot;);return false;&quot;' href='javascript:void(0);' rel='tag' title='Klik disini untuk beralih ke Tab baru!&lt;br/&gt; Tanpa meninggalkan halaman, lihat seluruh daftar entri sesuai dengan Label terpilih. '><data:label.name/></a>
 			</div>
-<script type='text/javascript'>
-//<![CDATA[
-$("#jqtips a[title]").tooltip({effect: 'bouncy'});
-$("#jqtips img[title]").tooltip({effect: 'bouncy'});
-//]]>
-</script>
   		<b:else/>
     <a expr:href='data:label.url' rel='tag'><data:label.name/></a>
   </b:if>
@@ -238,8 +232,13 @@ $("#jqtips img[title]").tooltip({effect: 'bouncy'});
 	  </b:if>
          </b:loop>
              </b:if>
-			</span>
-
+			</p>
+<script type='text/javascript'>
+//<![CDATA[
+$("#jqtips a[title]").tooltip({effect: 'bouncy'});
+$("#jqtips img[title]").tooltip({effect: 'bouncy'});
+//]]>
+</script>
 <b:if cond='data:blog.pageType == &quot;item&quot;'>
   <div class='post-footer-line post-footer-line-4'>
     <div id='postsrelacionados' style='height:190px;'>

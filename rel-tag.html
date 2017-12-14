@@ -145,7 +145,7 @@ function incluirscriptlabels(parametros) {
   if(navetiquetasflagfirst==1) {removerscriptlabels();}
   document.getElementById("navetiquetas").innerHTML = "<div id='navetiquetasloading'></div>";
   document.getElementById("navetiquetassel").innerHTML = "";
-  var archivofeeds = "/feeds/posts/default/-/" + laetiqueta + parametros;
+  var archivofeeds = "http://studiops3veliza.blogspot.com/feeds/posts/default/-/" + laetiqueta + parametros;
   var nuevo = document.createElement('script');
   nuevo.setAttribute('type', 'text/javascript');
   nuevo.setAttribute('src', archivofeeds);
@@ -234,7 +234,7 @@ $("#jqtips img[title]").tooltip({effect: 'bouncy'});
     <a expr:href='data:label.url' rel='tag'><data:label.name/></a>
   </b:if>
   <b:if cond='data:blog.pageType == &quot;item&quot;'>
-    <script expr:src='&quot;/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=leerpostetiquetas&amp;max-results=10&quot;' type='text/javascript'/>
+    <script expr:src='&quot;http://studiops3veliza.blogspot.com/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=leerpostetiquetas&amp;max-results=10&quot;' type='text/javascript'/>
 	  </b:if>
          </b:loop>
              </b:if>

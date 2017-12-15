@@ -7,238 +7,209 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400italic,400,500,500italic,700,700italic,900%7CMaterial+Icons' rel='stylesheet' type='text/css'/>
 <style>
 body{background:#fff;color:#111;font-family: Roboto, Arial, sans-serif;font-size:14px;font-weight:400;line-height:22px;text-decoration:none;margin:0;padding:0}
-/* Post relacionados */
-.post-footer-line-4 {border-top:1px dotted #345;margin:45px 0 10px;padding-top:10px;}
-#postsrelacionados {}
-.relsposts {float:left;height:180px;margin:0 5px;overflow:hidden;padding:5px;text-align:center;width:130px;}
-.relsposts:hover {background-image:-webkit-linear-gradient(#101921,#303941);background-image:linear-gradient(#101921,#303941);filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#FF101921', EndColorStr='#FF303941');}
-.relsposts a {color:#EEE !important;display:inline;font-family:Helvetica;font-size:11px;line-height:1;}
-.relsposts img {border-radius:4px;box-shadow:0 0 20px #444 inset;display:inline-block;height:72px;padding:5px;width:72px;}
-.relsposts h6 {display:table-cell;height: 5em;margin:5px 0 0;overflow:hidden;padding-bottom:2px;vertical-align:middle;width:130px;}
-.relsposts p {border-bottom:1px dotted #555;border-top:1px dotted #555;color:#AAA;font-size:10px;height:4em;line-height:1;margin:5px 0 0;overflow:hidden;padding:5px 0;text-align:left;}
+   /* al rectángulo contenedor lo centramos, le damos altura y eliminamos los saltos de línea indeseados */
+  #postsrelacionadosslider {
+    height: 180px;
+    position: relative;
+    width: 635px;
+  }
+  #postsrelacionadosslider br { display:none; }
 
-/* navegacion etiquetas bajo entradas */
-#postsrelacionados {height:190px;overflow:hidden;-webkit-transition:all 1s;-o-transition:all 1s;transition:all 1s;}
-#PF5 {height:0px;margin-top:-10px;overflow:hidden;-webkit-transition:all 1s;-o-transition:all 1s;transition:all 1s;}
-#navetiquetas {height: 190px;width: 100%;}
-#navetiquetassel {background-color: #272E37;border-radius: 4px;font-family: Tahoma;font-size: 12px;height: 24px;line-height: 24px;margin: 20px auto 0;padding: 1px 10px;text-align: center;width: 500px;}
-#navetiquetassel .anterior {background: transparent url(http://3.bp.blogspot.com/-npmUXBjrAzA/Td84ncv8eII/AAAAAAAAR9s/Egims18dqLo/s00/barraL.gif) no-repeat right 50%;float: left;height: 24px;width: 17px;}
-#navetiquetassel .siguiente {background: transparent url(http://3.bp.blogspot.com/-NaZnK-b6oQs/Td84nvTvMcI/AAAAAAAAR90/qOWetDPRtiQ/s00/barraR.gif) no-repeat left 50%;float: right;height: 24px;width: 17px;}
-#navetiquetassel .close {background: transparent url(http://2.bp.blogspot.com/-533BJ-6b_X8/Td84nXmTb7I/AAAAAAAAR9k/mfYy-jx-paM/s00/barraC.gif) no-repeat left 4px;float: right;height: 24px;margin-left: 100px;width: 17px;}
-#navetiquetassel a {color: #A0A9B1;font-size: 15px;font-weight: normal;opacity: 0.8;filter:alpha(opacity=80);}
-#navetiquetassel a:hover {opacity:1;filter:alpha(opacity=100);}
-#navetiquetassel .deshabilitado {opacity:.3;filter:alpha(opacity=30);}
-#navetiquetasfooter {height: 36px;line-height: 36px;margin: 0 auto;width: 500px;}
-#navetiquetasfooter a {color: #AAA;font-family: Helvetica;font-size: 11px;font-weight: normal;}
-#navetiquetasfooter a:hover {color: #FFF;}
-#navetiquetasfooter a.enlacefeed {float: right;}
-#navetiquetasloading {background: transparent url(https://lh6.googleusercontent.com/-EkoE39lvC78/Td8tat7EROI/AAAAAAAAR9M/jHH0E-2Uezg/s000/barraload.gif) no-repeat 50% 50%;height: 190px;width: 100%;}
-</style>
+  /* las imágenes que sirven para navegar las posiconamos una a cada extremo */
+  #relleft { left: 0; }
+  #relright { right: 0; }
+  .sflecha { height: 180px; position: absolute; width: 25px; }
+  .sflecha img { height: 180px; width: 25px;}
+
+  /* al rectángulo central lo dimensionamos, lo posicionamos e impedimos que se deborde */
+  #postsrelacionadosinner {
+    height: 180px;
+    left: 30px;
+    overflow: hidden;
+    position: absolute;
+    width: 576px; /* es el ancho real de cada post resumido por la cantidad visible, en este caso 4 */
+  }
+  /* esta será la "tira" a desplazar */
+  #postsrelacionadoscontenedor {
+    height: 180px;
+    position: absolute;
+    width: 2800px; /* es el ancho real de cada post resumido por la cantidad a mostrar, en este caso 20 */
+    /* el efecto */
+    -moz-transition: all 1s;
+    -webkit-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+  }
+
+  /* cada post resumido */
+  .relspostsslider {
+    background-image: -moz-linear-gradient(100% 100% 90deg, #4A37AB, #4A37AB);
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#4A37AB)), to(#4A37AB));
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#FF4A37AB', EndColorStr='#FF4A37AB');
+    float: left;
+    height: 180px;
+    margin: 0 2px;
+    overflow: hidden;
+    padding: 0 5px;
+    text-align: center;
+    width: 130px;
+  }
+
+  /* los contenidos de esos posts resumidos */
+  .relspostsslider a {
+    color: #EEE;
+    display: inline;
+    font-size: 11px;
+    line-height: 1;
+  }
+  .relspostsslider img {
+    height: 72px;
+    padding: 5px;
+    width: 72px;
+  }
+  .relspostsslider h6 {
+    display: table-cell;
+    height: 5em;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    vertical-align: middle;
+    width: 130px;
+  }
+  .relspostsslider p {
+    color: #AAA;
+    font-size: 10px;
+    height: 4em;
+    line-height: 1;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+  }
+  </style>
 <script>
-// POST RELACIONADOS
-var reltitulos = new Array();
-var relurls = new Array();
-var relresumen = new Array();
-var relimagen = new Array();
-var reltituloscantidad = 0;
-var relmaxamostrar = 4;
-function leerpostetiquetas(json) {
+var reltitulosslider = new Array();
+var relurlsslider = new Array();
+var relresumenslider = new Array();
+var relimagenslider = new Array();
+var reltituloscantidadslider = 0;
+var relmaxamostrarslider = 20;
+var relmaxlenslider = 75;
+var relimagenpodefectoslider = "https://sites.google.com/site/archivesiugi/juniakhir/Buku.png";
+function leerpostetiquetasslider(json) {
+  var entry, postimg, postcontent, cat;
   for (var i = 0; i < json.feed.entry.length; i++) {
-    var entry = json.feed.entry[i];
-    reltitulos[reltituloscantidad] = entry.title.$t;
-    reltitulos[reltituloscantidad] = getJSONtitle(entry);
-    if(entry.category[0] .term == "wallpapers" | entry.category[0] .term == "animacion" ) {
-      relresumen[reltituloscantidad] = "<span style='display:block;text-align:center;'>click para ver la entrada en una nueva pestaña</span>";
-    } else {
-      relresumen[reltituloscantidad] = getJSONcontent(entry,70);
+    if (i==json.feed.entry.length) { break; }
+    entry = json.feed.entry[i];
+    reltitulosslider[reltituloscantidadslider] = entry.title.$t;
+    postcontent = "";
+    if ("content" in entry) {
+      postcontent = entry.content.$t;
+    } else if ("summary" in entry) {
+      postcontent = entry.summary.$t;
     }
-    relimagen[reltituloscantidad] = getJSONthumbnail(entry);
-    relurls[reltituloscantidad] = getJSONurl(entry);
-    reltituloscantidad++;
+    relresumenslider[reltituloscantidadslider] = eliminattagsslider(postcontent,relmaxlenslider);
+    if ("media$thumbnail" in entry) {
+      postimg = entry.media$thumbnail.url;
+    } else {
+      postimg = relimagenpodefectoslider;
+    }
+    relimagenslider[reltituloscantidadslider] = postimg;
+    for (var k = 0; k < entry.link.length; k++) {
+      if (entry.link[k].rel == 'alternate') {
+        relurlsslider[reltituloscantidadslider] = entry.link[k].href;
+        break;
+      }
+    }
+    reltituloscantidadslider++;
   }
 }
-function mostrarrelacionados() {
-   var tmp = new Array(0);
-   var tmp2 = new Array(0);
-   var tmp3 = new Array(0);
-   var tmp4 = new Array(0);
-   for(var i = 0; i < relurls.length; i++) {
-      if(!contains(tmp, relurls[i])) {
-         tmp.length += 1; tmp[tmp.length - 1] = relurls[i];
-         tmp2.length += 1; tmp2[tmp2.length - 1] = reltitulos[i];
-         tmp3.length += 1; tmp3[tmp3.length - 1] = relresumen[i];
-         tmp4.length += 1; tmp4[tmp4.length - 1] = relimagen[i];
-      }
-   }
-   reltitulos = tmp2; relurls = tmp; relresumen = tmp3; relimagen = tmp4;
-   for(var i = 0; i < reltitulos.length; i++){
-     var indice = Math.floor((reltitulos.length - 1) * Math.random());
-     var tempTitle = reltitulos[i]; var tempUrls = relurls[i];
-     var tempResumen = relresumen[i]; var tempImagen = relimagen[i];
-     reltitulos[i] = reltitulos[indice]; relurls[i] = relurls[indice];
-     relresumen[i] = relresumen[indice]; relimagen[i] = relimagen[indice];
-     reltitulos[indice] = tempTitle; relurls[indice] = tempUrls;
-     relresumen[indice] = tempResumen; relimagen[indice] = tempImagen;
-   }
-   var cuantosPosts = 0;
-   var r = Math.floor((reltitulos.length - 1) * Math.random());
-   var rini = r;
-   var salida;
-   var dirURL = document.URL;
-   while (cuantosPosts < relmaxamostrar) {
-      if (relurls[r] != dirURL) {
-         salida = "<div class='relsposts'>";
-         salida += "<a href='" + relurls[r] + "' rel='nofollow'  target='_blank' title='" + reltitulos[r] + "'><img alt='' src='" + relimagen[r] + "' /></a>";
-         salida += "<h6><a href='" + relurls[r] + "' target='_blank'>" + reltitulos[r] + "</a></h6>";
-         salida += "<p>" + relresumen[r] + "</p>";
-         salida += "</div>";
-         document.write(salida);
-         cuantosPosts++;
-         if (cuantosPosts == relmaxamostrar) { break; }
-      }
-      if (r < reltitulos.length - 1) {
-         r++;
-      } else {
-         r = 0;
-      }
-      if(r==rini) { break; }
-   }
+function mostrarrelacionadosslider() {
+  var tmp = new Array(0);
+  var tmp2 = new Array(0);
+  var tmp3 = new Array(0);
+  var tmp4 = new Array(0);
+  for(var i = 0; i < relurlsslider.length; i++) {
+    if(!containsslider(tmp, relurlsslider[i])) {
+      tmp.length += 1; tmp[tmp.length - 1] = relurlsslider[i];
+      tmp2.length += 1; tmp2[tmp2.length - 1] = reltitulosslider[i];
+      tmp3.length += 1; tmp3[tmp3.length - 1] = relresumenslider[i];
+      tmp4.length += 1; tmp4[tmp4.length - 1] = relimagenslider[i];
+    }
+  }
+  reltitulosslider = tmp2; relurlsslider = tmp; relresumenslider = tmp3; relimagenslider = tmp4;
+  for(var i = 0; i < reltitulosslider.length; i++){
+    var indice = Math.floor((reltitulosslider.length - 1) * Math.random());
+    var tempTitle = reltitulosslider[i]; var tempUrls = relurlsslider[i];
+    var tempResumen = relresumenslider[i]; var tempImagen = relimagenslider[i];
+    reltitulosslider[i] = reltitulosslider[indice]; relurlsslider[i] = relurlsslider[indice];
+    relresumenslider[i] = relresumenslider[indice]; relimagenslider[i] = relimagenslider[indice];
+    reltitulosslider[indice] = tempTitle; relurlsslider[indice] = tempUrls;
+    relresumenslider[indice] = tempResumen; relimagenslider[indice] = tempImagen;
+  }
+  var cuantosPosts = 0;
+  var r = Math.floor((reltitulosslider.length - 1) * Math.random());
+  var rini = r;
+  var salida;
+  var dirURL = document.URL;
+  while (cuantosPosts < relmaxamostrarslider) {
+    if (relurlsslider[r] != dirURL) {
+      salida = "<div class='relspostsslider'>";
+      salida += "<a href='" + relurlsslider[r] + "' rel='nofollow'  target='_blank' title='" + reltitulosslider[r] + "'><img src='" + relimagenslider[r] + "' /></a>";
+      salida += "<h6><a href='" + relurlsslider[r] + "' target='_blank'>" + reltitulosslider[r] + "</a></h6>";
+      salida += "<p>" + relresumenslider[r] + " ... </p>";
+      salida += "</div>";
+      document.write(salida);
+      cuantosPosts++;
+      if (cuantosPosts == relmaxamostrarslider) { break; }
+    }
+    if (r < reltitulosslider.length - 1) {
+      r++;
+    } else {
+      r = 0;
+    }
+    if(r==rini) { break; }
+  }
 }
-function contains(a, e) {
+function eliminattagsslider(cual,longitud){
+  var resumen = cual.split("<");
+  for(var i=0;i<resumen.length;i++){
+    if(resumen[i].indexOf(">")!=-1){
+      resumen[i] = resumen[i].substring(resumen[i].indexOf(">")+1,resumen[i].length);
+    }
+  }
+  resumen = resumen.join("");
+  resumen = resumen.substring(0,longitud-1);
+  return resumen;
+} 
+function containsslider(a, e) {
   for(var j = 0; j < a.length; j++) if (a[j]==e) return true;
   return false;
 }
 
-// NAVEGACION ETIQUETAS BAJO ENTRADAS
-var laetiqueta;
-var navetiquetasflagfirst = 0;
-var labelsporpagina = 4;
-var labelanterior, labelsiguiente;
-function setnavetiquetas(cual) {
-  navetiquetasflagfirst = 0;
-  laetiqueta = cual;
-  navetiquetas(0);
-  return false;
+var SRmin = 0;
+var SRmax = -2160;
+var SRwidth = 144;
+function desplazarrels(direccion) {
+  var div = document.getElementById("postsrelacionadoscontenedor");
+  var pos = parseInt(div.style.left);
+  pos = pos + (SRwidth * direccion);
+  if(pos > SRmin) { return }
+  if(pos < SRmax) { return }
+  div.style.left = pos + "px";
 }
-function navetiquetas(direccion){
-  var p, parametros;
-  if(direccion==-1) {
-    p = labelanterior.indexOf("?");
-    parametros = labelanterior.substring(p);
-  } else if (direccion==1) {
-    p = labelsiguiente.indexOf("?");
-    parametros = labelsiguiente.substring(p);
-  } else {
-    document.getElementById("postsrelacionados").style.height = "0px";
-    document.getElementById("PF5").style.height = "270px";
-    parametros = "?start-index=1&max-results=" + labelsporpagina + "&orderby=published&alt=json-in-script"
-  }
-  parametros += "&callback=shownavetiquetas";
-  incluirscriptlabels(parametros);
-}
-function incluirscriptlabels(parametros) {
-  if(navetiquetasflagfirst==1) {removerscriptlabels();}
-  document.getElementById("navetiquetas").innerHTML = "<div id='navetiquetasloading'></div>";
-  document.getElementById("navetiquetassel").innerHTML = "";
-  var archivofeeds = "/feeds/posts/default/-/" + laetiqueta + parametros;
-  var nuevo = document.createElement('script');
-  nuevo.setAttribute('type', 'text/javascript');
-  nuevo.setAttribute('src', archivofeeds);
-  nuevo.setAttribute('id', 'NAVLABELTEMPORAL');
-  document.getElementsByTagName('head')[0].appendChild(nuevo);
-  navetiquetasflagfirst = 1;
-}
-function removerscriptlabels() {
-  var el = document.getElementById("NAVLABELTEMPORAL");
-  var padre = el.parentNode;
-  padre.removeChild(el);
-}
-function cerrarnavetiquetas() {
-    document.getElementById("PF5").style.height = "0px";
-    document.getElementById("postsrelacionados").style.height = "190px";
-}
-function shownavetiquetas(json) {
-  var entry, posttitle, posturl, postimg, postcontent;
-  var salida = "";
-  labelanterior = "";
-  labelsiguiente = "";
-  for (var k = 0; k < json.feed.link.length; k++) {
-    if (json.feed.link[k].rel == 'previous') {
-      labelanterior = json.feed.link[k].href;
-    }
-    if (json.feed.link[k].rel == 'next') {
-      labelsiguiente = json.feed.link[k].href;
-    }
-  }
-  for (var i = 0; i < labelsporpagina; i++) {
-    if (i == json.feed.entry.length) { break; }
-    entry = json.feed.entry[i];
-    posttitle = getJSONtitle(entry);
-    posturl = getJSONurl(entry);
 
-    if(entry.category[0] .term == "wallpapers" | entry.category[0] .term == "animacion" ) {
-      postcontent = "<span style='display:block;text-align:center;'>click para ver la entrada en una nueva pestaña</span>";
-    } else {
-      postcontent = getJSONcontent(entry,70);
-    }
-
-
-    postimg = getJSONthumbnail(entry);
-    salida += "<div class='relsposts'>";
-    salida += "<a href='" + posturl + "' target='_blank'><img alt='' src='" + postimg + "' /></a>";
-    salida += "<h6><a href='" + posturl + "' target='_blank'>" + posttitle + "</a></h6>";
-    salida += "<p>" + postcontent + "</p>";
-    salida += "</div>";
-  }
-  document.getElementById("navetiquetas").innerHTML = salida;
-  salida = "<a href='javascript:cerrarnavetiquetas()' class='close'></a>"
-  if(labelanterior) {
-    salida += "<a href='javascript:navetiquetas(-1);' class='anterior'></a>";
-  } else {
-    salida += "<span class='deshabilitado anterior'></span>";
-  }
-  if(labelsiguiente) {
-    salida += "<a href='javascript:navetiquetas(1);' class='siguiente'></a>";
-  } else {
-    salida += "<span class='deshabilitado siguiente'></span>";
-  }
-  salida += "<a href='javascript:navetiquetas(0);' class='inicio'>inicio</a>";
-  document.getElementById("navetiquetassel").innerHTML = salida;
-  salida = "<a href='/search/label/" + laetiqueta + "' target='_blank'>ver p&aacute;gina de etiquetas</a><a style='float: right;' href='/feeds/posts/summary/-/" +laetiqueta + "' target='_blank'>Suscribirse a " + laetiqueta + "</a><span class='simgvaga001 imgFeedER'></span>";
-  document.getElementById("navetiquetasfooter").innerHTML = salida;
-}
 </script>
 </head>
 <body>
-			<p class='postage'><i class='material-icons'>&#59539;</i> 
-             <b:if cond='data:post.labels'>
-              <b:loop values='data:post.labels' var='label'>
-    <b:if cond='data:blog.pageType == &quot;item&quot;'>
-              <a expr:onclick='&quot;setnavetiquetas(\&quot;&quot; + data:label.name + &quot;\&quot;);return false;&quot;' href='javascript:void(0);' rel='tag' title='Klik disini untuk beralih ke Tab baru!&lt;br/&gt; Tanpa meninggalkan halaman, lihat seluruh daftar entri sesuai dengan Label terpilih. '><data:label.name/></a>
-  		<b:else/>
-    <a expr:href='data:label.url' rel='tag'><data:label.name/></a>
-  </b:if>
-  <b:if cond='data:blog.pageType == &quot;item&quot;'>
-    <script expr:src='&quot;http://studiops3veliza.blogspot.com/feeds/posts/default/-/&quot; + data:label.name + &quot;?alt=json-in-script&amp;callback=leerpostetiquetas&amp;max-results=10&quot;' type='text/javascript'/>
-	  </b:if>
-         </b:loop>
-             </b:if>
-			</p>
-			<div class='post-footer'> 
-  <div class='post-footer-line post-footer-line-4'>
-    <div id='postsrelacionados' style='height:190px;'>
-      <script type='text/javascript'>mostrarrelacionados();</script>
-    </div>
-    <div style='clear:both;'/>
-  </div>
-
-<div class='post-footer-line post-footer-line-5'>
-  <div id='PF5' style='height:0px;'>
-    <div id='navetiquetas'/>
-    <div id='navetiquetassel'/>
-    <div id='navetiquetasfooter'/>
-  </div>
+<script src="http://caprt3a.blogspot.com/feeds/posts/default?alt=json-in-script&amp;callback=leerpostetiquetasslider&amp;max-results=50" type="text/javascript"></script>
+<div id="postsrelacionadosslider">
+<a onclick="desplazarrels(1);" class="sflecha" id="relleft" href="javascript:void(0);"><img src="http://3.bp.blogspot.com/-VugZogrsZu4/UfVZM6qJB9I/AAAAAAAAGGM/fS1Z1EpYLTY/s1600/LWicoleft.png"/></a><div id="postsrelacionadosinner">
+<div id="postsrelacionadoscontenedor" style="left:0">
+<script type='text/javascript'>mostrarrelacionadosslider();</script></div>
 </div>
- </div>
+<a onclick="desplazarrels(-1);" class="sflecha" id="relright" href="javascript:void(0);"><img src="http://2.bp.blogspot.com/-T-OCwnF3OyM/UfVZMzHc2jI/AAAAAAAAGGQ/MaVGBvyRIts/s1600/LWicoright.png"/></a></div>
+</p>
+<div style='clear: both;'>
+</div>
 </body>
 </html>
